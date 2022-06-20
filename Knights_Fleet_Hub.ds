@@ -1,0 +1,1318 @@
+/*
+ * Author       : demo1thoughtlogik
+ * Generated on : 20-Jun-2022 20:44:20
+ * Version      : 1.0
+ */
+ application "Knights Fleet Hub"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+	section Rota
+	{
+		icon = "tech-desktop"
+		default spreadsheet Rota_Report
+		{
+			displayName = "Rota Entry"
+			show all rows from Rota  [Current_Week == true]  
+			(
+				Drivers
+				Date_field as "Date"
+				Mon
+				(
+					width = 85px
+				)
+				Tue
+				(
+					width = 86px
+				)
+				Wed
+				(
+					width = 71px
+				)
+				Th as "Thu"
+				(
+					width = 71px
+				)
+				Fri
+				(
+					width = 68px
+				)
+				Sat
+				(
+					width = 89px
+				)
+				Sun
+				(
+					width = 89px
+				)
+				Driver_f
+				(
+					width = 116px
+				)
+				Date_Range as "Date Range"
+				Date_Range_f as "Date Range f"
+				(
+					width = 128px
+				)
+				Current_Week as "Current Week"
+			)
+			options
+			(
+				icon = "design-bullet-list-67"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -4
+					datablock1
+					(
+			 			layout type = -4
+						fields
+						(
+							Driver_f
+							Date_Range_f as "Date Range f"
+							Mon
+							Tue
+							Wed
+							Th as "Thu"
+							Fri
+							Sat
+							Sun
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+						fields
+						(
+							Drivers
+							Date_field as "Date"
+							Mon
+							Tue
+							Wed
+							Th as "Thu"
+							Fri
+							Sat
+							Sun
+							Driver_f
+							Date_Range as "Date Range"
+							Date_Range_f as "Date Range f"
+							Current_Week as "Current Week"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+		list Rota_Report1
+		{
+			displayName = "Rota History"
+			show all rows from Rota    
+			(
+				Drivers
+				Date_field as "Date"
+				Mon
+				Tue
+				Wed
+				Th as "Thu"
+				Fri
+				Sat
+				Sun
+				Driver_f
+				Date_Range as "Date Range"
+				Current_Week as "Current Week"
+			)
+			group by
+			(
+				Date_Range descending
+			)
+			quickview
+			(
+				layout
+				(
+		 			type = -4
+					datablock1
+					(
+			 			layout type = -4
+						fields
+						(
+							Driver_f
+							Mon
+							Tue
+							Wed
+							Th as "Thu"
+							Fri
+							Sat
+							Sun
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+						fields
+						(
+							Drivers
+							Date_field as "Date"
+							Mon
+							Tue
+							Wed
+							Th as "Thu"
+							Fri
+							Sat
+							Sun
+							Driver_f
+							Current_Week as "Current Week"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+		form Rota
+		{
+			success message = "Data Added Successfully!"
+			field alignment = left
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Drivers
+			(
+				type = picklist	
+				values  = Drivers.ID
+    			displayformat = [Name]
+				searchable = true
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Driver_f
+			(
+    			type = formula
+				value =  input.Drivers.Name
+				visibility = false
+				format = plaintext
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Date_Range_f
+			(
+    			type = formula
+				displayname = "Date Range f"
+				value =  input.Date_Range
+				visibility = false
+				format = plaintext
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Date_field
+			(
+    			type = date
+				displayname = "Date"
+				initial value = "${zoho.currentdate}"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Date_Range
+			(
+    			type = text
+				displayname = "Date Range"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Mon
+			(
+				type = picklist
+				maxchar = 100
+				values = {"In", "Off", "Stage 1", "Stage 2", "Classroom", "Ridealong", "Rescue"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Tue
+			(
+				type = picklist
+				maxchar = 100
+				values = {"In", "Off", "Stage 1", "Stage 2", "Classroom", "Ridealong", "Rescue"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Wed
+			(
+				type = picklist
+				maxchar = 100
+				values = {"In", "Off", "Stage 1", "Stage 2", "Classroom", "Ridealong", "Rescue"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Th
+			(
+				type = picklist
+				displayname = "Thu"
+				maxchar = 100
+				values = {"In", "Off", "Stage 1", "Stage 2", "Classroom", "Ridealong", "Rescue"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Fri
+			(
+				type = picklist
+				maxchar = 100
+				values = {"In", "Off", "Stage 1", "Stage 2", "Classroom", "Ridealong", "Rescue"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Sat
+			(
+				type = picklist
+				maxchar = 100
+				values = {"In", "Off", "Stage 1", "Stage 2", "Classroom", "Ridealong", "Rescue"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Sun
+			(
+				type = picklist
+				maxchar = 100
+				values = {"In", "Off", "Stage 1", "Stage 2", "Classroom", "Ridealong", "Rescue"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Current_Week
+			(
+    			type = checkbox
+				displayname = "Current Week"
+				initial value = false
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "ui-1-bold-add"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	section Haulage
+	{
+		icon = "tech-desktop"
+		form Haulage_Form
+		{
+			displayname = "Haulage Form"
+			success message = "Data Added Successfully!"
+			field alignment = left
+					hide = true
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Drivers
+			(
+				type = picklist	
+				values  = Drivers.ID
+    			displayformat = [Name]
+				searchable = true
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Date_field
+			(
+    			type = date
+				displayname = "Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Origin
+			(
+				type = picklist	
+				values  = Places.ID
+    			displayformat = [City_Town]
+				allow new entries = true
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Destination
+			(
+				type = picklist	
+				values  = Places.ID
+    			displayformat = [City_Town]
+				allow new entries = true
+				[
+					displayname = "Add New"
+				]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Start_Time
+			(
+    			type = datetime
+				displayname = "Start Time"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			End_Time
+			(
+    			type = datetime
+				displayname = "End Time"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Amount
+			(
+				type = decimal
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Source_Destination
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Multi_Line
+			(
+    			type = textarea
+				displayname = "Multi Line"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Number_of_trips
+			(
+				type = number
+				displayname = "Number of trips"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Trip_Number
+			(
+    			type = text
+				displayname = "Trip Number"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "ui-1-bold-add"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default timeline Haulage_Dairy
+		{
+			displayName = "Haulage Dairy"
+			show all rows from Haulage_Form    
+			(
+				Drivers
+				Date_field as "Date"
+				Start_Time as "Start Time"
+				End_Time as "End Time"
+				Amount
+				Source_Destination
+				Multi_Line as "Multi Line"
+				Origin
+				Destination
+				Drivers.Phone_Number as "Phone"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+				Trip_Number as "Trip Number"
+			)
+			group by
+			(
+				Drivers ascending
+			)
+			options
+			(
+				display type = day
+				week start day = monday
+				display field = Source_Destination
+				start date = Start_Time
+				end date = End_Time
+				default date 
+				(
+	    			day   = Today
+	    			month = Currentmonth
+	    			year  = Currentyear
+				)
+				icon = "design-bullet-list-67"
+			)
+			conditional formatting
+			(
+				"New Formatting"
+				{
+				condition = (Drivers.Name == "John Porter")
+				format = "color:#ffffff;background-color:#e84c3d;"
+				}
+				"New Formatting"
+				{
+				condition = (Drivers.Name == "Simon Davis")
+				format = "color:#333;background-color:#f1c40f;"
+				}
+				"New Formatting"
+				{
+				condition = (Drivers.Name == "Victor martin")
+				format = "color:#ffffff;background-color:#107c91;"
+				}
+				"New Formatting"
+				{
+				condition = (Drivers.Name == "David Wilson")
+				format = "color:#000000;background-color:#1bbc9b;"
+				}
+			)
+			quickview
+			(
+				layout
+				(
+		 			type = 2
+					datablock1
+					(
+			 			layout type = 4
+						fields
+						(
+							Source_Destination
+							Drivers
+							Drivers.Phone_Number as "Phone"
+							Start_Time as "Start Time"
+							End_Time as "End Time"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+						fields
+						(
+							Drivers
+							Date_field as "Date"
+							Start_Time as "Start Time"
+							End_Time as "End Time"
+							Amount
+							Multi_Line as "Multi Line"
+							Origin
+							Destination
+							Trip_Number as "Trip Number"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+		pivottable Haulage_Earnings
+		{ 
+			displayname = "Haulage Earnings"
+			layout = 7
+			report properties
+			(
+				records displayed = all_records
+				allow export = false
+				allow drilldown and view underlying data = false
+		
+			)
+
+			based on Autoview_1653424091636_Haulage_Form
+							icon = "ui-2-grid-square"				show all rows from Haulage_Form
+				(
+			Drivers 
+			Date_field  as "Date"
+			Origin 
+			Destination 
+			Start_Time  as "Start Time"
+			End_Time  as "End Time"
+			Amount 
+			Source_Destination 
+			Number_of_trips  as "Number of trips"
+			Trip_Number  as "Trip Number1"
+				)
+		}
+		pivotchart Weekly_Driver_Earnings
+		{ 
+			displayname = "Weekly Driver Earnings"
+			legend = RIGHT
+			report properties
+			(
+				records displayed = all_records
+				allow export = false
+				allow drilldown and view underlying data = false
+		
+			)
+
+			based on Autoview_1653424091636_Haulage_Form
+							icon = "business-chart-bar-32"				show all rows from Haulage_Form
+				(
+			Drivers 
+			Date_field  as "Date"
+			Origin 
+			Destination 
+			Start_Time  as "Start Time"
+			End_Time  as "End Time"
+			Amount 
+			Source_Destination 
+			Number_of_trips  as "Number of trips"
+			Trip_Number  as "Trip Number1"
+				)
+		}
+	}
+	section Masters
+	{
+		icon = "tech-desktop"
+		form Drivers
+		{
+			success message = "Data Added Successfully!"
+			field alignment = left
+					hide = true
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Name
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Phone_Number
+			(
+    			type = phonenumber
+				displayname = "Phone"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+	
+			customize
+			(
+				icon = "ui-1-bold-add"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list Drivers_Report
+		{
+			displayName = "Drivers"
+			show all rows from Drivers    
+			(
+				Name
+				Phone_Number as "Phone"
+				(
+					displayformat = plainnumber 
+					linktodial = enable
+				)
+			)
+			options
+			(
+				icon = "design-bullet-list-67"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+			 			layout type = -1
+						fields
+						(
+							Name
+							Phone_Number as "Phone"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+						fields
+						(
+							Name
+							Phone_Number as "Phone"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+	section Places
+	{
+		icon = "tech-desktop"
+		form Places
+		{
+			success message = "Data Added Successfully!"
+			field alignment = left
+					hide = true
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			City_Town
+			(
+    			type = text
+				displayname = "City/Town"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			customize
+			(
+				icon = "ui-1-bold-add"
+			)
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+					reset
+					(
+   						type = reset
+   						displayname = "Reset"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		default list Places_Report
+		{
+			displayName = "Places Report"
+   			hide = true
+			show all rows from Places    
+			(
+				City_Town as "City/Town"
+			)
+			options
+			(
+				icon = "design-bullet-list-67"
+	 		)
+			quickview
+			(
+				layout
+				(
+		 			type = -1
+					datablock1
+					(
+			 			layout type = -1
+						fields
+						(
+							City_Town as "City/Town"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+							record
+							(
+								Edit   	   
+								Duplicate   	   
+								Delete   	   
+    						)
+    			)
+    			action
+    			(
+							on click
+							(
+								View Record   	   
+    						)
+							on right click
+							(
+								Edit   	   
+								Delete   	   
+								Duplicate   	   
+								View Record   	   
+    						)
+     			)
+			)
+			detailview
+			(
+				layout
+				(
+		 			type = 1
+					datablock1
+					(
+			 			layout type = -2
+						fields
+						(
+							City_Town as "City/Town"
+						)
+					)
+				)
+
+				menu
+    			(
+    	 			header
+    	 			(
+    		 			Edit 
+    		 			Duplicate 
+    		 			Delete 
+    	 			)
+    			)
+			)
+		}
+	}
+		 functions
+		 {
+			 Deluge
+			 {
+				 void auto_drivers_rota()
+         {
+         	currentDate = zoho.currentdate;
+         	dayNumber = currentDate.getDayOfWeek();
+         	info dayNumber;
+         	if(dayNumber = 2)
+         	{
+         		newDate = currentDate.addDay(6);
+         		info newDate;
+         		Date_Range = currentDate + " to " + newDate;
+         	}
+         	for each  d in Drivers[ID != 0]
+         	{
+         		a = insert into Rota
+         		[
+         			Added_User=zoho.loginuser
+         			Drivers=d.ID
+         			Date_field=zoho.currentdate
+         			Date_Range=Date_Range
+         		];
+         	}
+         }
+			 }
+		 }
+
+
+
+
+		workflow
+		{
+		form
+		{
+			CE_Field as "CE-Field"
+			{
+				type =  form
+				form = Rota
+				record event = on add or edit
+
+				field rules
+				{
+				}
+
+			}
+			Field_updates as "Field updates"
+			{
+				type =  form
+				form = Haulage_Form
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// update Source_Destination
+										source = input.Origin.City_Town;
+										destination = input.Destination.City_Town;
+										src_dest = source.concat(" - ").concat(destination);
+										input.Source_Destination = src_dest;
+										// update trips per day
+										tripCount = input.Number_of_trips;
+										if(tripCount != null)
+										{
+											tripCount = tripCount + 1;
+										}
+										else
+										{
+											tripCount = 1;
+										}
+										input.Trip_Number = "Trip ".concat(tripCount.toString());
+						)
+					}
+				}
+
+			}
+			Hide_Fields as "Hide Fields"
+			{
+				type =  form
+				form = Haulage_Form
+				record event = on add or edit
+
+				field rules
+				{
+					actions 
+					{
+						hide Source_Destination;
+					}
+					actions 
+					{
+						hide Number_of_trips,Trip_Number;
+					}
+				}
+
+			}
+			Calculate_trips_per_day as "Calculate trips per day"
+			{
+				type =  form
+				form = Haulage_Form
+				record event = on add
+
+				on user input of Date_field
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											numberOfTrips = Haulage_Form[Drivers == input.Drivers && Date_field == input.Date_field].count();
+										input.Number_of_trips = numberOfTrips;
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			Weekly_Rota as "Weekly Rota"
+			{
+				type =  schedule
+				start = "2022-05-30 00:30:26"
+				frequency = weekly
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						currentDate = zoho.currentdate;
+										dayNumber = currentDate.getDayOfWeek();
+										info dayNumber;
+										if(dayNumber == 2)
+										{
+											newDate = currentDate.addDay(6);
+											info newDate;
+											Date_Range = currentDate + " to " + newDate;
+										}
+										info Date_Range;
+										fetRota = Rota[ID != 0].ID.getAll();
+										info fetRota;
+										for each  rota in fetRota
+										{
+											rotaRecord = Rota[ID == rota];
+											rotaRecord.Current_Week=False;
+										}
+										for each  d in Drivers[ID != 0]
+										{
+											a = insert into Rota
+											[
+												Added_User=zoho.loginuser
+												Drivers=d.ID
+												Date_field=zoho.currentdate
+												Date_Range=Date_Range
+												Current_Week=True
+											];
+										}
+					)
+					}
+				}
+			}
+		}
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+				}
+			}
+	}
+
+	customize
+	{
+		
+		layout = "tab"
+		color = "black"
+		base theme = "professional"
+		new theme = 4
+		new theme color = 1
+		icons = true
+		icons style = outline
+	}
+
+
+	
+	reports configuration
+	{
+	
+		Version = 2000022970521
+		Key     = "UeTZD4yj0O0yyy6uTrvZFWbVfUHDerDb1QmD2512PvGQMUkZr4bxHSO9HgG0V6ZWs3tbFvsmMS1e8KTQOQDAe2dmEv1zdV3usxTk"
+	}
+}
